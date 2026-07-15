@@ -80,7 +80,7 @@ function App() {
   return (
     
       <div className='w-screen min-h-screen bg-richblack-900 flex flex-col font-inter'>
-       <div style={{ color: "#fff", padding: 8, fontSize: 12 }}>App mounted</div>
+       <div style={{ color: "#fff", padding: 8, fontSize: 12 }}> </div>
        <Navbar/>
        <Routes>
         <Route path='/' element={<Home/>}/>
