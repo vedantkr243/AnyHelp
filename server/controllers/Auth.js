@@ -30,7 +30,7 @@ exports.sendOtp =async(req, res) =>{
         lowerCaseAlphabets:false,
         specialChars:false,
     });
-    console.log("OTP generated: ", otp);
+   
     // check unit otp or not
     let result = await OTP.findOne({otp: otp});
     while(result){
