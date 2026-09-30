@@ -12,7 +12,7 @@ const OTPSchema = new mongoose.Schema({
     },
     createdAt:{
         type:Date,
-        default:Date.now(),
+        default:Date.now,
         expires:15*60,
     },
 });
@@ -28,9 +28,8 @@ async function sendVerificationOTP(email, otp){
     }
 }
 
-OTPSchema.pre("save", async function(next) {
-    await sendVerificationOTP(this.email, this.otp)
-    next;
-})
+OTPSchema.pre("save", async function () {
+    await sendVerificationOTP(this.email, this.otp);
+});
 
 module.exports = mongoose.model("OTP",OTPSchema);
