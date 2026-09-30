@@ -19,8 +19,8 @@ exports.sendOtp =async(req, res) =>{
     const checkUserPresent = await User.findOne({email});
     //if user already exist, then return a recentOtp
     if(checkUserPresent){
-        return res.status(401).json({
-            successs:false,
+        return res.status(409).json({
+            success:false,
             message:'Email already registered',
         })
     }
