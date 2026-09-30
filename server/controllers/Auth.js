@@ -53,7 +53,6 @@ exports.sendOtp =async(req, res) =>{
     res.status(200).json({
         success:true,
         message:'OTP sent successfully ',
-        otpBody,
     })
 }
 catch(err){
@@ -83,7 +82,7 @@ try{
         }= req.body;
 
         //validation karlo
-        if(!firstName || !lastName || !email || !password || !confirmPassword  || !otp){
+        if(!firstName || !lastName || !email || !password || !confirmPassword  || !otp || !accountType){
             return res.status(403).json({
                 success:false,
                 message:'All fields are required, Please fill all the details',
@@ -107,7 +106,7 @@ try{
         //check if user already exist or not
         const existingUser = await User.findOne({email});
         if(existingUser){
-            return res.status(401).json({
+            return res.status(409).json({
                 success:false,
                 message:"Email already registered",
             });
@@ -137,16 +136,16 @@ try{
         //Hash password
         const hashedPassword= await bcrypt.hash(password, 10);
          // create the user
-         let approved = "";
+         let approved = accountType;
          approved=== "Instructor" ? (approved = false) : (approved = true);
         //create the additional profile for user
 const profileDetails = await Profile.create({
     gender:null,
     dateOfBirth:null,
     about:null,
-    contactNumber:null,
+    ContactNumber:null,
 }); 
-    console.log("Profile details created", firstName, lastName, email, password, accountType, ContactNumber);
+    console.log("Profile details created", firstName, lastName, email, accountType, ContactNumber);
          const user= await User.create({
             firstName,
             lastName,
